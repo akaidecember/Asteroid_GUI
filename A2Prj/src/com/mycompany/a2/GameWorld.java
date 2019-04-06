@@ -5,7 +5,6 @@ import java.util.Observer;
 import Interfaces.IMovable;
 import Interfaces.IGameWorld;
 import Interfaces.IIterator;
-import ClosingForm.ClosingApp;
 import Collection.GameCollection;
 import Objects.Asteroid;
 import Objects.GameObject;
@@ -13,6 +12,8 @@ import Objects.Missile;
 import Objects.NonPlayerShip;
 import Objects.PlayerShip;
 import Objects.SpaceStation;
+import OtherForms.ClosingApp;
+import OtherForms.GameOverApp;
 
 public class GameWorld extends Observable implements IGameWorld{
 
@@ -775,7 +776,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void gameOver() {
 		
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx     Game Over !!!     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-		System.exit(0);
+		new GameOverApp(getPoints(), getTime());
 		
 	}
 	
