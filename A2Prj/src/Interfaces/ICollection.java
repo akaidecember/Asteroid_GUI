@@ -8,4 +8,5 @@ public interface ICollection {
 	public IIterator getIterator();
 	public boolean remove(GameObject obj);
 	public int size();
+	
 }

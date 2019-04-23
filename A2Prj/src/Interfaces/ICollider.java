@@ -1,5 +1,7 @@
 package Interfaces;
 
-public class ICollider {
+public interface ICollider {
 
+	public boolean collidesWith(ICollider gameObject);
+	
 }
