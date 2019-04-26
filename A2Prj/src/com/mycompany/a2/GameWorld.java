@@ -1,6 +1,7 @@
 package com.mycompany.a2;
 
 import java.util.Observable;
+import Sound.*;
 import java.util.Observer;
 import Interfaces.IMovable;
 import Interfaces.IGameWorld;
@@ -32,6 +33,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	private int time;
 	private int gameWidth;
 	private int gameHeight;
+	private GameSound sounds;
+	private boolean isPaused;
 	
 	//Behaviours for the class GameWorld----------------------------------------------------------------
 	
@@ -47,6 +50,12 @@ public class GameWorld extends Observable implements IGameWorld{
 		
 		//ArrayList of the type GameObject to store all the objects created for the game
 		worldList = new GameCollection();
+		
+		//Initializing the gameSound attribute
+		sounds = new GameSound();
+		
+		//Unpausing the game
+		isPaused = false;
 		
 		//Setting the scores, time and life for the start of the game
 		score = 0;
@@ -182,6 +191,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void turnLauncherLeft() {
 		
 		if(checkForPs()) {
+			sounds.moveLauncherSound();									//Playing the sound for turning launcher
 			System.out.println("Turned PS missile launcher left");
 			ps.steerLauncherLeft();
 			callObserver();
@@ -194,6 +204,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void turnLauncherRight() {
 		
 		if(checkForPs()) {
+			sounds.moveLauncherSound();									//Playing the sound for turning launcher
 			System.out.println("Turned PS missile launcher right");
 			ps.steerLauncherRight();
 			callObserver();
@@ -216,13 +227,22 @@ public class GameWorld extends Observable implements IGameWorld{
 				//Decrementing the missile count for the player ship
 				ps.setMissileCount(ps.getMissileCount() - 1);
 				
+				//Playing sound for firing missile
+				sounds.missileLaunchSound();
+				
 				System.out.println("PS missile fired");
 				
 				callObserver();
 				
 			}
-			else
+			else {
+				
+				//Playing noAmmo sounds
+				sounds.noAmmoSound();
+				
 				System.out.println("Your ship has run out of missiles! Please reload at the Space Station\n");
+				
+			}
 			
 		}
 		else
@@ -242,6 +262,9 @@ public class GameWorld extends Observable implements IGameWorld{
 				
 				//Decrementing the missile count for the non player ship
 				nps.setNpsMissileCount(nps.getNpsMissileCount() - 1);
+				
+				//Playing sound for firing missile
+				sounds.missileLaunchSound();
 				
 				System.out.println("NPS missile fired");
 				
@@ -263,6 +286,10 @@ public class GameWorld extends Observable implements IGameWorld{
 		if(checkForPs()) {
 
 			ps.defaultLocationPs();
+			
+			//Playing the sound for hyperjump
+			sounds.jumpSound();
+			
 			System.out.println("PS hyperjump!");
 			callObserver();
 			
@@ -279,6 +306,10 @@ public class GameWorld extends Observable implements IGameWorld{
 		if(checkForPs()) {
 
 			ps.setMaxMissiles();
+			
+			//Playing the sounds for reload
+			sounds.reloadSound();
+			
 			System.out.println("Missiles loaded");
 			callObserver();
 			
@@ -338,6 +369,10 @@ public class GameWorld extends Observable implements IGameWorld{
 					
 					worldList.remove(tempAsteroid);
 					worldList.remove(tempMissile);
+					
+					//Playing explosion sound
+					sounds.collisionSound();
+					
 					System.out.println("Asteroid and PS Missile destroyed");
 					score++;
 					callObserver();
@@ -404,6 +439,10 @@ public class GameWorld extends Observable implements IGameWorld{
 					
 					worldList.remove(tempNps);
 					worldList.remove(tempMissile);
+					
+					//Playing collision sound
+					sounds.collisionSound();
+					
 					System.out.println("NPS and PS Missile destroyed");
 					score++;
 					callObserver();
@@ -457,6 +496,9 @@ public class GameWorld extends Observable implements IGameWorld{
 				worldList.remove(tempMissile);
 				worldList.remove(ps);
 				
+				//Playing PS explosion sound, different from other explosions 
+				sounds.shipCrashSound();
+				
 				System.out.println("PS and NPS Missile destroyed");
 				callObserver();
 					
@@ -505,6 +547,10 @@ public class GameWorld extends Observable implements IGameWorld{
 				worldList.remove(temp);
 				
 				System.out.println("PS crashed into asteroid");
+				
+				//Playing PS explosion sound, different from other explosions 
+				sounds.shipCrashSound();
+				
 				callObserver();
 				
 				if(life > 1) 
@@ -552,6 +598,10 @@ public class GameWorld extends Observable implements IGameWorld{
 				worldList.remove(tempNps);
 				
 				System.out.println("PS has hit NPS");
+				
+				//Playing PS explosion sound, different from other explosions 
+				sounds.shipCrashSound();
+				
 				callObserver();
 				
 				if(life > 1) 
@@ -603,6 +653,10 @@ public class GameWorld extends Observable implements IGameWorld{
 				count--;
 				worldList.remove(temp[count]);
 				System.out.println("Two asteroids destroyed");
+				
+				//Playing explosion sound
+				sounds.collisionSound();
+				
 				callObserver();
 				
 			}
@@ -661,6 +715,10 @@ public class GameWorld extends Observable implements IGameWorld{
 					worldList.remove(tempAsteroid);
 					worldList.remove(tempNps);
 					System.out.println("Asteroid collided with NPS");
+					
+					//Playing collision sounds
+					sounds.collisionSound();
+					
 					callObserver(); 					
 				}
 				else
@@ -779,6 +837,9 @@ public class GameWorld extends Observable implements IGameWorld{
 	//Method to initiate the game over sequence. This is called whenever the number of lives for the player has reacher 0
 	public void gameOver() {
 		
+		//Playing gameOver Sound
+		sounds.gameOverSound();
+		
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx     Game Over !!!     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		new GameOverApp(getPoints(), getTime());
 		
@@ -892,6 +953,42 @@ public class GameWorld extends Observable implements IGameWorld{
 		}
 	
 		return false;
+		
+	}
+	
+	public void setVolume(int v) {
+		
+		sounds.setVol(v);
+		
+	}
+	
+	public void setBGVolume(int bV) {
+		
+		sounds.setBGVol(bV);
+		
+	}
+	
+	public int getBGVolume() {
+		
+		return sounds.getBGVol();
+		
+	}
+	
+	public int getVolume() {
+		
+		return sounds.getVol();
+		
+	}
+	
+	public boolean getSoundOn() {
+		
+		return sounds.getSound();
+		
+	}
+	
+	public void toggleSound() {
+		
+		sounds.soundToggle();
 		
 	}
 	

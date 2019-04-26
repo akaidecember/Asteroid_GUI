@@ -8,7 +8,6 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.MenuBar;
-import com.codename1.ui.SideMenuBar;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
@@ -18,21 +17,16 @@ import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.UITimer;
-
 import CommandButton.CommandButtons;
 import Commands.*;
-
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
-
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
-
 import Views.MapView;
 import Views.PointsView;
-
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
@@ -44,6 +38,7 @@ public class Game extends Form implements Runnable{
 	private MapView mv;
 	private PointsView pv;
 	private Container container;
+	private UITimer timer;
 	
 	//Objects for the commands
 	private AddAsteroid addAsteroid;
@@ -89,6 +84,10 @@ public class Game extends Form implements Runnable{
 		gw.addObserver(mv);
 		gw.addObserver(pv);
 		
+		//Initializing the UITimer timer field and starting the timer in the constructor
+		timer = new UITimer(this);
+		startTime(timer);
+		
 		//Add commands to create the form
 		this.setLayout(new BorderLayout());
 		
@@ -121,7 +120,7 @@ public class Game extends Form implements Runnable{
 		soundBox.setCommand(sCommand);
 		about = new About();
 		quitGame = new QuitGame(gw);
-		
+
 		//Commands
 		addAsteroid = new AddAsteroid(gw);
 		addNps = new AddNps(gw);
@@ -258,7 +257,19 @@ public class Game extends Form implements Runnable{
 	@Override
 	public void run() {
 		
+		gw.tick();
 		
+	}
+	
+	public void startTime(UITimer t) {
+		
+		t.schedule(100, true, this);
+		
+	}
+	
+	public void stopTime(UITimer t) {
+		
+		t.cancel();
 		
 	}
 	
