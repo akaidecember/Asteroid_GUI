@@ -992,4 +992,18 @@ public class GameWorld extends Observable implements IGameWorld{
 		
 	}
 	
+	public void setPaused() {
+		
+		if(isPaused)
+			isPaused = false;
+		else
+			isPaused = true;
+		
+	}
+	
+	public boolean isPaused() {
+		
+		return isPaused;
+		
+	}
 }

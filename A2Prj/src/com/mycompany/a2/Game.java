@@ -67,9 +67,10 @@ public class Game extends Form implements Runnable{
 	private About about;
 	private PrintMap printMap;
 	private PrintDisplay printDisplay;
+	private Pause pauseCommand;
 	
 	//GameButtons
-	private CommandButtons b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22;
+	private CommandButtons b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23;
 	
 	//Constructor
 	public Game() {
@@ -146,6 +147,7 @@ public class Game extends Form implements Runnable{
 		tick = new Tick(gw);
 		printDisplay = new PrintDisplay(gw);
 		printMap = new PrintMap(gw);
+		pauseCommand = new Pause(timer, gw, this);
 
 		
 		//Adding the menus to the container
@@ -181,6 +183,7 @@ public class Game extends Form implements Runnable{
 		b20 = new CommandButtons("Asteroid (Asteroid)", asteroidsCollide, ColorUtil.BLUE);
 		b21 = new CommandButtons("Asteroid (NPS)", asteroidCollidesNps, ColorUtil.BLUE);
 		b22 = new CommandButtons("Tick", tick, ColorUtil.BLUE);
+		b23 = new CommandButtons("Pause", pauseCommand, ColorUtil.BLUE);
 		
 		//Adding the buttons to the container
 		container.add(b1);
@@ -196,7 +199,7 @@ public class Game extends Form implements Runnable{
 		container.add(b11);
 		container.add(b12);
 		container.add(b13);
-		container.add(b14);
+		//container.add(b14);
 		container.add(b15);
 		container.add(b16);
 		container.add(b17);
@@ -204,8 +207,21 @@ public class Game extends Form implements Runnable{
 		container.add(b19);
 		container.add(b20);
 		container.add(b21);
-		container.add(b22);
-
+		//container.add(b22);
+		container.add(b23);
+		
+		//Calling the notPaused function to enable the buttons only if the game is not currently paused
+		notPaused();
+		this.show();
+		gw.setHeight(mv.getHeight());
+		gw.setWidth(mv.getWidth());
+		gw.callObserver();
+		gw.init();
+				
+	}
+	
+	public void notPaused() {
+		
 		//Enabling the buttons
 		b1.setEnabled(true);
 		b2.setEnabled(true);
@@ -220,7 +236,7 @@ public class Game extends Form implements Runnable{
 		b11.setEnabled(true);
 		b12.setEnabled(true);
 		b13.setEnabled(true);
-		b14.setEnabled(true);
+		//b14.setEnabled(true);
 		b15.setEnabled(true);
 		b16.setEnabled(true);
 		b17.setEnabled(true);
@@ -228,6 +244,9 @@ public class Game extends Form implements Runnable{
 		b19.setEnabled(true);
 		b20.setEnabled(true);
 		b21.setEnabled(true);
+		
+		//Setting the pause button
+		b23.setText("Pause");
 		
 		//Adding the key listeners
 		this.addKeyListener('i', increasePsSpeed);
@@ -245,12 +264,54 @@ public class Game extends Form implements Runnable{
 		this.addKeyListener('q', quitGame);
 		this.addKeyListener('M', printMap);
 		this.addKeyListener('P', printDisplay);
-				
-		this.show();
-		gw.setHeight(mv.getHeight());
-		gw.setWidth(mv.getWidth());
-		gw.callObserver();
-		gw.init();
+		
+	}
+	
+	//Disabling al the appropriate buttons if the game is paused
+	public void isPaused() {
+		
+		//Enabling the buttons
+		b1.setEnabled(false);
+		b2.setEnabled(false);
+		b3.setEnabled(false);
+		b4.setEnabled(false);
+		b5.setEnabled(false);
+		b6.setEnabled(false);
+		b7.setEnabled(false);
+		b8.setEnabled(false);
+		b9.setEnabled(false);
+		b10.setEnabled(false);
+		b11.setEnabled(false);
+		b12.setEnabled(false);
+		b13.setEnabled(false);
+		//b14.setEnabled(false);
+		b15.setEnabled(false);
+		b16.setEnabled(false);
+		b17.setEnabled(false);
+		b18.setEnabled(false);
+		b19.setEnabled(false);
+		b20.setEnabled(false);
+		b21.setEnabled(false);
+		
+		//Setting the pause button
+		b23.setText("Resume");
+		
+		//Adding the key listeners
+		this.removeKeyListener('i', increasePsSpeed);
+		this.removeKeyListener(-91, increasePsSpeed);
+		this.removeKeyListener('d', decreasePsSpeed);
+		this.removeKeyListener(-92, decreasePsSpeed);
+		this.removeKeyListener('l', turnPsLeft);
+		this.removeKeyListener('r', turnPsRight);
+		this.removeKeyListener(-93, turnPsLeft);
+		this.removeKeyListener(-94, turnPsRight);
+		this.removeKeyListener(',', turnLauncherLeft);
+		this.removeKeyListener('.', turnLauncherRight);
+		this.removeKeyListener('j', hyperJump);
+		this.removeKeyListener(-90, firePs);
+		this.addKeyListener('q', quitGame);
+		this.removeKeyListener('M', printMap);
+		this.removeKeyListener('P', printDisplay);
 		
 	}
 
