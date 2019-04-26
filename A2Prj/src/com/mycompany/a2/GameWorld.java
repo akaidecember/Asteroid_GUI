@@ -7,6 +7,7 @@ import Interfaces.IGameWorld;
 import Interfaces.IIterator;
 import Collection.GameCollection;
 import Objects.Asteroid;
+import Objects.Fixed;
 import Objects.GameObject;
 import Objects.Missile;
 import Objects.NonPlayerShip;
@@ -697,6 +698,7 @@ public class GameWorld extends Observable implements IGameWorld{
 					IMovable mObj = (IMovable) current;
 					mObj.move();
 					
+					//Check if the current instance of the GameObject is a missile or not
 					if(mObj instanceof Missile) {
 						
 						Missile tempMissile = (Missile) current;
@@ -704,16 +706,18 @@ public class GameWorld extends Observable implements IGameWorld{
 							worldList.remove(tempMissile);
 						else
 							tempMissile.decreaseFuelLevel();
+						
 					}
+				
+				}
+				else if(current instanceof Fixed) {
+					
+					SpaceStation spaceStation = (SpaceStation) current;
+					if(spaceStation.getBlinkRate() % time == 0)
+						spaceStation.toggleBlink();
 					
 				}
-				
-			}
-			if(checkForStation()) {
-				
-				if(spaceStation.getBlinkRate() % time == 0)
-					spaceStation.toggleBlink();
-				
+
 			}
 			
 		}
@@ -883,24 +887,6 @@ public class GameWorld extends Observable implements IGameWorld{
 			
 			currentObj = objIterator.getNext();
 			if(currentObj instanceof NonPlayerShip)
-				return true;
-			
-		}
-	
-		return false;
-		
-	}
-	
-	//Checks if a spaceStation exists in the gameWorld
-	private boolean checkForStation() {
-		
-		IIterator objIterator = worldList.getIterator();
-		Object currentObj = new Object();
-		
-		while(objIterator.hasNext()) {
-			
-			currentObj = objIterator.getNext();
-			if(currentObj instanceof SpaceStation)
 				return true;
 			
 		}

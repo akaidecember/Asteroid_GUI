@@ -40,7 +40,7 @@ public class MapView extends Container implements Observer{
 		setWidth(proxy.getWidth());
 		setHeight(proxy.getHeight());
 		this.repaint();
-		proxy.map();
+		//proxy.map();
 		
 	}
 	

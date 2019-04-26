@@ -38,7 +38,7 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import java.lang.String;
 
-public class Game extends Form{
+public class Game extends Form implements Runnable{
 
 	private GameWorld gw;
 	private MapView mv;
@@ -252,6 +252,13 @@ public class Game extends Form{
 		gw.setWidth(mv.getWidth());
 		gw.callObserver();
 		gw.init();
+		
+	}
+
+	@Override
+	public void run() {
+		
+		
 		
 	}
 	

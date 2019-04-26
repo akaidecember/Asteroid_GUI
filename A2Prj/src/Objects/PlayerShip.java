@@ -1,13 +1,18 @@
 package Objects;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point2D;
 
+import Interfaces.ICollider;
+import Interfaces.IDrawable;
 import Interfaces.ISteerable;
 
-public class PlayerShip extends Movable implements ISteerable{
+public class PlayerShip extends Movable implements ISteerable, IDrawable, ICollider{
 
 	//Attributes for the class PlayerShip
 	
+	private int size;
 	private int missileCount;
 	private int steerDegrees;
 	private final int maxMissileCount = 10;
@@ -26,6 +31,7 @@ public class PlayerShip extends Movable implements ISteerable{
 		setColor(ColorUtil.rgb(255, 0, 0));	//Color set to red
 		psLauncher = new SteerableMissileLauncher(this.getSpeed(), this.getDirection());
 		steerDegrees = 5;
+		size = 10;
 				
 	}
 	
@@ -119,6 +125,37 @@ public class PlayerShip extends Movable implements ISteerable{
 		
 		String desc = "Player Ship: " + super.toString() + " missiles=" + this.getMissileCount() + psLauncher.toString() + "\n";
 		return desc;
+		
+	}
+
+	@Override
+	public boolean collidesWith(ICollider gameObject) {
+		
+		return false;
+	}
+
+	@Override
+	public void draw(Graphics g, Point2D pCmpRelPrnt) {
+		
+		//Getting the location relative to the local component
+		int x = (int)(pCmpRelPrnt.getX() + this.getX());
+		int y = (int)(pCmpRelPrnt.getY() + this.getY());
+		
+		//Setting the color for the graihpcs object
+		g.setColor(this.getColor());
+		
+		//Creating the points for drawing the shape
+		Point2D top = new Point2D(x,y + size/3*2);
+		Point2D bottomLeft = new Point2D(x - (size/3*2), y - (size/3*2));
+		Point2D bottomRight = new Point2D(x + (size/3*2), y - (size/3*2));
+		
+		//Storing the points in integer array for drawing the triangle
+		int[] xPoints = new int[] {(int) top.getX(), (int)bottomLeft.getX(), (int)bottomRight.getX()};
+		int[] yPoints = new int[] {(int) top.getY(), (int)bottomLeft.getY(), (int)bottomRight.getY()};
+		
+		//Drawing and colouring the triangles
+		g.drawPolygon(xPoints, yPoints, 3);
+		g.fillPolygon(xPoints, yPoints, 3);
 		
 	}
 	
