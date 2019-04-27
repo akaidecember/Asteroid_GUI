@@ -26,7 +26,11 @@ public class Asteroid extends Movable implements IDrawable, ISelectable, ICollid
 		this.setColor(ColorUtil.rgb(128, 128, 128));									//Setting the color to grey
 		sidePoints = this.getRandom().nextInt(5) + 10;									//Setting the number of side points (corners) for the asteroid
 		
-		for(int i=1; i <= sidePoints; i++) {
+		//Initializing the arrays
+		xSidePoints = new int[sidePoints];
+		ySidePoints = new int[sidePoints];
+		
+		for(int i=1; i < sidePoints; i++) {
 			
 			xSidePoints[i] = (int)(this.getX() + this.getRandom().nextInt(20) - 10 + size * Math.cos((360/sidePoints * i)));
 			ySidePoints[i] = (int)(this.getY() + this.getRandom().nextInt(20) - 10 + size * Math.sin((360/sidePoints * i)));

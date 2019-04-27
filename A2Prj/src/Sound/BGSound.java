@@ -44,8 +44,13 @@ public class BGSound implements Runnable{
 	
 	public void run() {
 		
-		m.setTime(0);
-		m.play();
+		//Starts to play the music when the time is zero
+		while(m.getTime() > 0) {
+			
+			m.setTime(0);
+			m.play();
+		
+		}
 		
 	}
 

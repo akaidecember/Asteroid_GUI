@@ -33,7 +33,7 @@ public class GameSound {
 		bgVol = 50;
 		vol = 50;
 		
-		enabled = false;
+		enabled = true;
 		
 	}
 	

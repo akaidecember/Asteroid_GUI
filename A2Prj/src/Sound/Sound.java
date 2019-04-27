@@ -31,8 +31,8 @@ public class Sound{
 	
 	public void play(int vol) {
 		
-		m.setTime(0);
-		m.setVolume(vol);
+		m.setTime(0);									//Setting the audio position to zero
+		m.setVolume(vol);								//Setting the volume for the playback
 		m.play();
 		
 	}

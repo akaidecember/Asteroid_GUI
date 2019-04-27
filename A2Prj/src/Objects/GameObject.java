@@ -48,14 +48,14 @@ public abstract class GameObject {
 	
 	public void setX(double newX) {
 		
-		if(GameCanvas.rangeCheckX(newX))
+		//if(GameCanvas.rangeCheckX(newX))
 			this.x = newX;
 		
 	}
 	
 	public void setY(double newY) {
 		
-		if(GameCanvas.rangeCheckY(newY))
+		//if(GameCanvas.rangeCheckY(newY))
 			this.y = newY;
 		
 	}
@@ -89,14 +89,14 @@ public abstract class GameObject {
 			double tempX = newLocation.getX();
 			double tempY = newLocation.getY();
 			
-			if(GameCanvas.rangeCheck(tempX, tempY)) {
+			//if(GameCanvas.rangeCheck(tempX, tempY)) {
 			
 				setX(tempX);
 				setY(tempY);
 				
-			}
-			else
-				throw new Exception("The coordinates are out of range.");
+			//}
+			//else
+			//	throw new Exception("The coordinates are out of range.");
 			
 		}catch(Exception e) {
 			

@@ -15,7 +15,7 @@ public class GameCanvas {
 	
 	//Behaviours----------------------------------------------------------------------
 	
-	//Static methods to check if the coordinates are within range
+/*	//Static methods to check if the coordinates are within range
 	public static boolean rangeCheck(double xVal, double yVal) {
 		
 		if(rangeCheckX(xVal) && rangeCheckY(yVal))	
@@ -42,7 +42,7 @@ public class GameCanvas {
 		else
 			return false;
 		
-	}
+	}*/
 	
 	//Methods to get the min. and max. values for reference
 	public double getCanvasMin(){

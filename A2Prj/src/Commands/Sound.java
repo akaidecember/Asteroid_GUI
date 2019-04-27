@@ -5,7 +5,6 @@ import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-
 public class Sound extends Command {
 	
 	private CheckBox c;
@@ -27,13 +26,13 @@ public class Sound extends Command {
 			
 			if(c.isSelected()) {
 				
-				System.out.println("selected");
+				System.out.println("sound selected");
 				gw.soundToggle();
 				
 			}
 			else {
 				
-				System.out.println("unselected");
+				System.out.println("sound unselected");
 				gw.soundToggle();
 				
 			}

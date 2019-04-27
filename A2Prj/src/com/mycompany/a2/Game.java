@@ -37,7 +37,6 @@ public class Game extends Form implements Runnable{
 	private GameWorld gw;
 	private MapView mv;
 	private PointsView pv;
-	private Container container;
 	private UITimer timer;
 	
 	//Objects for the commands
@@ -92,15 +91,28 @@ public class Game extends Form implements Runnable{
 		//Add commands to create the form
 		this.setLayout(new BorderLayout());
 		
-		this.add(BorderLayout.CENTER, mv);						//Centre container
-		this.add(BorderLayout.NORTH, pv);						//north container
+		//Creating the top container
+		Container top = new Container();
+		top.setLayout(new FlowLayout(Component.CENTER));
+		this.add(BorderLayout.NORTH, top);						//Adding the top container to the form
+		top.add(pv);											//Adding the points view to the top container
+		
+		//Creating the center container for the mapView
+		Container center = new Container();
+		center.getAllStyles().setBgTransparency(255);
+		center.getAllStyles().setBgColor(ColorUtil.BLACK);
+		center.getAllStyles().setBorder(Border.createLineBorder(3, ColorUtil.BLUE));
+		this.add(BorderLayout.CENTER, center);
+		
+		//this.add(BorderLayout.CENTER, mv);						//Centre container
+		//this.add(BorderLayout.NORTH, pv);						//north container
 		
 		//West Container to hold the buttons for game commands
-		container = new Container();
-		container.getAllStyles().setBgTransparency(0);
-		container.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
-		container.getAllStyles().setBorder(Border.createLineBorder(3, ColorUtil.YELLOW));
-		this.add(BorderLayout.WEST, container);
+		Container left = new Container();
+		left.getAllStyles().setBgTransparency(0);
+		left.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+		left.getAllStyles().setBorder(Border.createLineBorder(3, ColorUtil.YELLOW));
+		this.add(BorderLayout.WEST, left);
 		
 		//Tool bar
 		Toolbar toolBar = new Toolbar();
@@ -119,6 +131,7 @@ public class Game extends Form implements Runnable{
 		soundBox.getAllStyles().setBgTransparency(255);
 		Command sCommand = new Sound(soundBox, gw);
 		soundBox.setCommand(sCommand);
+		soundBox.setSelected(true);
 		about = new About();
 		quitGame = new QuitGame(gw);
 
@@ -149,8 +162,7 @@ public class Game extends Form implements Runnable{
 		printMap = new PrintMap(gw);
 		pauseCommand = new Pause(timer, gw, this);
 
-		
-		//Adding the menus to the container
+		//Adding the menus to the container-----------
 		
 		//Adding to the side menu
 		toolBar.addComponentToSideMenu(soundBox);
@@ -186,41 +198,50 @@ public class Game extends Form implements Runnable{
 		b23 = new CommandButtons("Pause", pauseCommand, ColorUtil.BLUE);
 		
 		//Adding the buttons to the container
-		container.add(b1);
-		container.add(b2);
-		container.add(b3);
-		container.add(b4);
-		container.add(b5);
-		container.add(b6);
-		container.add(b7);
-		container.add(b8);
-		container.add(b9);
-		container.add(b10);
-		container.add(b11);
-		container.add(b12);
-		container.add(b13);
-		//container.add(b14);
-		container.add(b15);
-		container.add(b16);
-		container.add(b17);
-		container.add(b18);
-		container.add(b19);
-		container.add(b20);
-		container.add(b21);
-		//container.add(b22);
-		container.add(b23);
+		left.add(b1);
+		left.add(b2);
+		left.add(b3);
+		left.add(b4);
+		left.add(b5);
+		left.add(b6);
+		left.add(b7);
+		left.add(b8);
+		left.add(b9);
+		left.add(b10);
+		left.add(b11);
+		left.add(b12);
+		left.add(b13);
+		//left.add(b14);
+		left.add(b15);
+		left.add(b16);
+		left.add(b17);
+		left.add(b18);
+		left.add(b19);
+		left.add(b20);
+		left.add(b21);
+		//left.add(b22);
+		left.add(b23);
 		
 		//Calling the notPaused function to enable the buttons only if the game is not currently paused
-		notPaused();
+		gameNotPaused();
+		
 		this.show();
-		gw.setHeight(mv.getHeight());
-		gw.setWidth(mv.getWidth());
+		mv.setHeight(center.getHeight());
+		mv.setWidth(center.getWidth());
+		
+		//Setting the attributes of the GameWorld width and height to the dimensions of the center container 
+		gw.setHeight((int)center.getHeight());
+		gw.setWidth((int)center.getWidth());
+		
+		//Adding the mapView to the center container
+		center.add(mv);
+		
 		gw.callObserver();
 		gw.init();
 				
 	}
 	
-	public void notPaused() {
+	public void gameNotPaused() {
 		
 		//Enabling the buttons
 		b1.setEnabled(true);
@@ -267,8 +288,8 @@ public class Game extends Form implements Runnable{
 		
 	}
 	
-	//Disabling al the appropriate buttons if the game is paused
-	public void isPaused() {
+	//Disabling all the appropriate buttons if the game is paused
+	public void gamePaused() {
 		
 		//Enabling the buttons
 		b1.setEnabled(false);
@@ -318,8 +339,14 @@ public class Game extends Form implements Runnable{
 	@Override
 	public void run() {
 		
-		gw.tick();
-		
+		//Tick the game and call repaint if the game is not paused
+		if(gw.isPaused() == false){
+			
+			gw.tick();
+			mv.repaint();
+			
+		}
+			
 	}
 	
 	public void startTime(UITimer t) {

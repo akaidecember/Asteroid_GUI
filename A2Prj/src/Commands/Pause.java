@@ -31,16 +31,16 @@ public class Pause extends Command{
 		if(this.gw.isPaused()) {
 			
 			this.g.startTime(time);	
-			this.gw.setPaused();			
-			this.g.notPaused();
+			this.gw.setPaused(false);			
+			this.g.gameNotPaused();
 			
 		}
 		
 		else {
 			
 			this.g.stopTime(time);		
-			this.gw.setPaused();			
-			this.g.isPaused();
+			this.gw.setPaused(true);			
+			this.g.gamePaused();
 			
 		}
 		

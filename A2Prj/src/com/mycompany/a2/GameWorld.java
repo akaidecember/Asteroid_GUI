@@ -27,7 +27,6 @@ public class GameWorld extends Observable implements IGameWorld{
 	private NonPlayerShip nps;
 	private PlayerShip ps;
 	private SpaceStation spaceStation;
-	//private boolean sound;
 	private int life;
 	private int score;
 	private int time;
@@ -55,7 +54,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		sounds = new GameSound();
 		
 		//Unpausing the game
-		isPaused = false;
+		this.setPaused(false);
 		
 		//Setting the scores, time and life for the start of the game
 		score = 0;
@@ -79,7 +78,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void callObserver() {
 		
 		this.setChanged();
-		this.notifyObservers(new GameWorldProxy(this));
+		GameWorldProxy g = new GameWorldProxy(this);
+		this.notifyObservers(g);
 		
 	}
 	
@@ -986,12 +986,15 @@ public class GameWorld extends Observable implements IGameWorld{
 		
 	}
 	
-	public void setPaused() {
+	public void setPaused(boolean chk) {
 		
-		if(isPaused)
-			isPaused = false;
-		else
-			isPaused = true;
+		if(chk == true)
+			sounds.pauseMusic();
+		else if(chk == false)
+			sounds.playMusic();
+		
+		isPaused = chk;
+
 		
 	}
 	
