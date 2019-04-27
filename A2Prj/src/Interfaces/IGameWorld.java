@@ -1,5 +1,7 @@
 package Interfaces;
 
+import Collection.GameCollection;
+
 public interface IGameWorld {
 
 	//Specification for all the gameWorld methods
@@ -40,5 +42,6 @@ public interface IGameWorld {
 	public void setHeight(int height);
 	public void setWidth(int height);
 	public void soundToggle();
+	public GameCollection getObjects();
 	
 }

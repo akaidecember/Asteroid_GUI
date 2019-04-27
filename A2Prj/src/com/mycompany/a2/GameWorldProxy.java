@@ -2,6 +2,7 @@ package com.mycompany.a2;
 
 import java.util.Observable;
 
+import Collection.GameCollection;
 import Interfaces.IGameWorld;
 
 public class GameWorldProxy extends Observable implements IGameWorld{
@@ -240,6 +241,12 @@ public class GameWorldProxy extends Observable implements IGameWorld{
 	public void setWidth(int height) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public GameCollection getObjects() {
+		
+		return gw.getObjects();
 	}
 	
 }

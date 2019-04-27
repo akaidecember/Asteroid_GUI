@@ -14,7 +14,7 @@ public class GameSound {
 	private Sound moveLauncher;
 	private BGSound background;
 	private int bgVol, vol;
-	private boolean enable;
+	private boolean enabled;
 	
 	//Behaviours for the class GameSound-----------------------------------------------------------------------------------
 	
@@ -33,61 +33,61 @@ public class GameSound {
 		bgVol = 50;
 		vol = 50;
 		
-		enable = false;
+		enabled = false;
 		
 	}
 	
 	public void collisionSound(){
 		
-		if (enable)
+		if (enabled)
 			collision.play(getVol());
 
 	}
 	
 	public void moveLauncherSound() {
 		
-		if(enable)
+		if(enabled)
 			moveLauncher.play(getVol());
 		
 	}
 	
 	public void shipCrashSound(){
 		
-		if (enable)
+		if (enabled)
 			shipCrashed.play(getVol());
 		
 	}
 	
 	public void gameOverSound(){
 		
-		if (enable)
+		if (enabled)
 			gameOver.play(getVol());
 		
 	}
 	
 	public void missileLaunchSound(){
 		
-		if (enable)
+		if (enabled)
 			missileLaunch.play(getVol());
 		
 	}
 	
 	public void noAmmoSound() {
 		
-		if(enable) 
+		if(enabled) 
 			noAmmo.play(getVol());
 		
 	}
 	public void reloadSound() {
 	
-		if(enable) 
+		if(enabled) 
 			missileReload.play(getVol());
 		
 	}
 	
 	public void jumpSound() {
 		
-		if(enable) 
+		if(enabled) 
 			hyperJump.play(getVol());
 		
 	}	
@@ -95,7 +95,7 @@ public class GameSound {
 	//This method is for playing the background sound
 	public void playMusic() { 
 
-		if(enable)
+		if(enabled)
 			background.play(getBGVol());
 		
 	}
@@ -108,18 +108,19 @@ public class GameSound {
 	
 	public void soundToggle() {
 		
-		enable = !enable;
+		enabled = !enabled;
 		
-		if (enable == false)
+		if (enabled == false)
 			pauseMusic();
 		else
 			playMusic();
 
 	}
 
+	//Return the starte of the sound
 	public boolean getSound() {
 		
-		return enable;
+		return enabled;
 		
 	}
 	

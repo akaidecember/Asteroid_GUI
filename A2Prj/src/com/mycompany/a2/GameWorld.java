@@ -27,7 +27,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	private NonPlayerShip nps;
 	private PlayerShip ps;
 	private SpaceStation spaceStation;
-	private boolean sound;
+	//private boolean sound;
 	private int life;
 	private int score;
 	private int time;
@@ -61,7 +61,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		score = 0;
 		time = 0;
 		life = 3;
-		sound = false;
+		
 		System.out.println("Initialized world for the game");
 		
 		callObserver();
@@ -876,11 +876,11 @@ public class GameWorld extends Observable implements IGameWorld{
 		
 	}
 
-	//Method to determine if the sound attribute od true or false
+	//Method to determine if the sound attribute is true or false
 	@Override
 	public boolean checkSound() {
 		
-		return (this.sound?true:false);
+		return (sounds.getSound() ? true : false);
 		
 	}
 	
@@ -915,7 +915,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	//toggles sound to true or false
 	public void soundToggle() {
 		
-		this.sound = !sound;
+		sounds.soundToggle();
 		callObserver();
 		
 	}
@@ -983,12 +983,6 @@ public class GameWorld extends Observable implements IGameWorld{
 	public boolean getSoundOn() {
 		
 		return sounds.getSound();
-		
-	}
-	
-	public void toggleSound() {
-		
-		sounds.soundToggle();
 		
 	}
 	
