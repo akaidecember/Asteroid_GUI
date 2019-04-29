@@ -83,7 +83,7 @@ public class Asteroid extends Movable implements IDrawable, ISelectable, ICollid
 		 //Drawing and filling the asteroid
 		 g.setColor(this.getColor());
 		 g.drawPolygon(xSidePoints, ySidePoints, sidePoints);
-		 //g.fillPolygon(xSidePoints, ySidePoints, sidePoints);
+		 g.fillPolygon(xSidePoints, ySidePoints, sidePoints);
 		
 	}
 	

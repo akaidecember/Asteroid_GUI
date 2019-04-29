@@ -26,7 +26,7 @@ public class MapView extends Container implements Observer{
 	public MapView(GameWorld proxy) {
 		
 		this.proxy = proxy;
-		this.objects = this.proxy.getObjects();
+		//this.objects = this.proxy.getObjects();
 		
 	}
 	
@@ -50,13 +50,15 @@ public class MapView extends Container implements Observer{
 		
 		super.paint(g);
 		Point2D pCmpRelPrnt = new Point2D(getX(), getY());
-		
 		IIterator iterator = objects.getIterator();
 		
 		while(iterator.hasNext()) {
 
 			Object object = (GameObject)iterator.getNext();
-			((IDrawable)object).draw(g, pCmpRelPrnt);
+			
+			//Will only call the draw function of the object if the object itself implements IDrawable
+			if(object instanceof IDrawable)
+				((IDrawable)object).draw(g, pCmpRelPrnt);
 			
 		}
 		
