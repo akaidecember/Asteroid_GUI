@@ -21,7 +21,7 @@ public class Missile extends Movable implements ISelectable, IDrawable, ICollide
 	//Parameterized constructor
 	public Missile(int newSpeed , int newDirection , Point2D newLocation , int newFlag) {
 		
-		size = this.getRandom().nextInt(21) + 15;
+		size = 10;
 		this.setFuel(10);
 		this.missileFlag = newFlag;				//0 for ps, 1 for nps
 		super.setDirection(newDirection);
@@ -116,7 +116,7 @@ public class Missile extends Movable implements ISelectable, IDrawable, ICollide
 		
 		g.setColor(this.getColor());
 		g.drawRect(x - this.size/4, y - this.size/2, this.size/2, this.size);		
-		g.drawRect(x - this.size/4, y - this.size/2, this.size/2, this.size);	
+		g.fillRect(x - this.size/4, y - this.size/2, this.size/2, this.size);	
 		
 	}
 	

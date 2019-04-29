@@ -30,8 +30,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	private int life;
 	private int score;
 	private int time;
-	private int gameWidth;
-	private int gameHeight;
+	private static int gameWidth;
+	private static int gameHeight;
 	private GameSound sounds;
 	private boolean isPaused;
 	
@@ -86,7 +86,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	//Method to return the collection of Objects
 	public GameCollection getObjects() {
 		
-		return worldList;
+		return this.worldList;
 		
 	}
 
@@ -738,7 +738,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	 * is reduced by one and any missiles which are depleted must be removed. Each space station toggles 
 	 * its blinking light if the tick is zero and the game time elapsed is incremented by one. 
 	 */
-	public void tick() {
+	public void tick(int elapsed) {
 		
 		IIterator iterator = worldList.getIterator();
 		Object current = new Object();
@@ -754,7 +754,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				if(current instanceof IMovable) {
 					
 					IMovable mObj = (IMovable) current;
-					mObj.move();
+					mObj.move(elapsed);
 					
 					//Check if the current instance of the GameObject is a missile or not
 					if(mObj instanceof Missile) {
@@ -885,14 +885,14 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	//returns the height of the canvas
-	public int getHeight() {
+	public static int getHeight() {
 		
 		return gameHeight;
 		
 	}
 	
 	//returns the width of the canvas
-	public int getWidth() {
+	public static int getWidth() {
 		
 		return gameWidth;
 		

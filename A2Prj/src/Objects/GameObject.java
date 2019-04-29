@@ -3,6 +3,7 @@ package Objects;
 import java.util.Random;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.geom.Point2D;
+import com.mycompany.a2.GameWorld;
 
 /*
  * Abstract class GameObject to provide implementations for the different objects of the game
@@ -16,7 +17,6 @@ public abstract class GameObject {
 	private int color;
 	private Random rand;
 	private Point2D objectLocation;
-	private GameCanvas canvas;
 	//private ObjectColor objColor;
 	
 	//Behaviours---------------------------------------------------------------
@@ -25,10 +25,10 @@ public abstract class GameObject {
 	public GameObject() {
 		
 		//objColor = new ObjectColor();
-		canvas = new GameCanvas();
+
 		rand = new Random();
-		x = (double) rand.nextInt((int)(canvas.getCanvasXMax()));
-		y = (double) rand.nextInt((int)(canvas.getCanvasYMax()));
+		x = (double) rand.nextInt((int)(GameWorld.getWidth()));
+		y = (double) rand.nextInt((int)(GameWorld.getHeight()));
 		objectLocation = new Point2D(x,y);
 		
 	}

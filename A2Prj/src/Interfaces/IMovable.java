@@ -2,6 +2,6 @@ package Interfaces;
 
 public interface IMovable {
 
-	public abstract void move();
+	public abstract void move(long elapsed);
 	
 }

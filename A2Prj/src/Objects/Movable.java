@@ -24,12 +24,13 @@ public abstract class Movable extends GameObject implements IMovable{
 	}
 	
 	//Method to implement the move() method
-	public void move() {
+	public void move(long elapsed) {
 		
 		int theta = 90 - direction;
 		Point2D oldLocation = this.getLocation();
-		double delX = Math.cos(theta) * speed;
-		double delY = Math.sin(theta) * speed;
+
+		double delX = Math.cos(Math.toRadians(theta)) * (speed * ((double)elapsed/1000));
+		double delY = Math.sin(Math.toRadians(theta)) * (speed * ((double)elapsed/1000));
 		Point2D newLocation = new Point2D( (oldLocation.getX() + delX) , (oldLocation.getY() + delY) );
 		setLocation(newLocation);
 		

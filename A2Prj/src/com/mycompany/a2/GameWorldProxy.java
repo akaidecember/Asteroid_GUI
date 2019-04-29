@@ -141,12 +141,6 @@ public class GameWorldProxy extends Observable implements IGameWorld{
 	}
 
 	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void print() {
 		// TODO Auto-generated method stub
 		
@@ -214,18 +208,6 @@ public class GameWorldProxy extends Observable implements IGameWorld{
 	}
 
 	@Override
-	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void soundToggle() {
 		// TODO Auto-generated method stub
 		
@@ -247,6 +229,12 @@ public class GameWorldProxy extends Observable implements IGameWorld{
 	public GameCollection getObjects() {
 		
 		return gw.getObjects();
+	}
+
+	@Override
+	public void tick(int elapsed) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

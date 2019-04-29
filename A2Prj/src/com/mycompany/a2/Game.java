@@ -61,7 +61,7 @@ public class Game extends Form implements Runnable{
 	private PsHitNps psHitNps;
 	private AsteroidsCollide asteroidsCollide;
 	private AsteroidCollidesNps asteroidCollidesNps;
-	private Tick tick;
+	//private Tick tick;
 	private QuitGame quitGame;
 	private About about;
 	private PrintMap printMap;
@@ -85,8 +85,8 @@ public class Game extends Form implements Runnable{
 		gw.addObserver(pv);
 		
 		//Initializing the UITimer timer field and starting the timer in the constructor
-		timer = new UITimer(this);
-		startTime(timer);
+		this.timer = new UITimer(this);
+		this.startTime(timer);
 		
 		//Add commands to create the form
 		this.setLayout(new BorderLayout());
@@ -103,9 +103,6 @@ public class Game extends Form implements Runnable{
 		center.getAllStyles().setBgColor(ColorUtil.BLACK);
 		center.getAllStyles().setBorder(Border.createLineBorder(3, ColorUtil.BLUE));
 		this.add(BorderLayout.CENTER, center);
-		
-		//this.add(BorderLayout.CENTER, mv);						//Centre container
-		//this.add(BorderLayout.NORTH, pv);						//north container
 		
 		//West Container to hold the buttons for game commands
 		Container left = new Container();
@@ -157,7 +154,7 @@ public class Game extends Form implements Runnable{
 		psHitNps = new PsHitNps(gw);
 		asteroidsCollide = new AsteroidsCollide(gw);
 		asteroidCollidesNps = new AsteroidCollidesNps(gw);
-		tick = new Tick(gw);
+		//tick = new Tick(gw);
 		printDisplay = new PrintDisplay(gw);
 		printMap = new PrintMap(gw);
 		pauseCommand = new Pause(timer, gw, this);
@@ -194,7 +191,7 @@ public class Game extends Form implements Runnable{
 		b19 = new CommandButtons("PS (NPS)", psHitNps, ColorUtil.BLUE);
 		b20 = new CommandButtons("Asteroid (Asteroid)", asteroidsCollide, ColorUtil.BLUE);
 		b21 = new CommandButtons("Asteroid (NPS)", asteroidCollidesNps, ColorUtil.BLUE);
-		b22 = new CommandButtons("Tick", tick, ColorUtil.BLUE);
+		//b22 = new CommandButtons("Tick", tick, ColorUtil.BLUE);
 		b23 = new CommandButtons("Pause", pauseCommand, ColorUtil.BLUE);
 		
 		//Adding the buttons to the container
@@ -339,19 +336,21 @@ public class Game extends Form implements Runnable{
 	@Override
 	public void run() {
 		
+		final int elapsed = 500;
+		
 		//Tick the game and call repaint if the game is not paused
 		if(gw.isPaused() == false){
 			
-			gw.tick();
+			gw.tick(elapsed);
 			mv.repaint();
 			
 		}
 			
 	}
 	
-	public void startTime(UITimer t) {
+	public void startTime(UITimer timer) {
 		
-		t.schedule(100, true, this);
+		timer.schedule(100, true, this);
 		
 	}
 	

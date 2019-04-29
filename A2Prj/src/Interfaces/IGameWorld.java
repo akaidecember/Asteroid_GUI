@@ -27,7 +27,7 @@ public interface IGameWorld {
 	public void psHitNps();
 	public void asteroidsCollide();
 	public void asteroidCollidesNps();
-	public void tick();
+	public void tick(int elapsed);
 	public void print();
 	public void map();
 	public void quit();
@@ -37,8 +37,8 @@ public interface IGameWorld {
 	public int getPoints();
 	public int getTime();
 	public boolean checkSound();
-	public int getHeight();
-	public int getWidth();
+/*	public int getHeight();
+	public int getWidth();*/
 	public void setHeight(int height);
 	public void setWidth(int height);
 	public void soundToggle();

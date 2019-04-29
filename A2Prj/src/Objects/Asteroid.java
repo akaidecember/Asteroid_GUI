@@ -22,7 +22,7 @@ public class Asteroid extends Movable implements IDrawable, ISelectable, ICollid
 	//Default constructor for the class Asteroid
 	public Asteroid() {
 
-		size = getRandom().nextInt(25) + 6;					   							//Setting the size to a random value between 6 and 30
+		size = getRandom().nextInt(25) + 10;					   							//Setting the size to a random value between 6 and 30
 		this.setColor(ColorUtil.rgb(128, 128, 128));									//Setting the color to grey
 		sidePoints = this.getRandom().nextInt(5) + 10;									//Setting the number of side points (corners) for the asteroid
 		
@@ -71,7 +71,7 @@ public class Asteroid extends Movable implements IDrawable, ISelectable, ICollid
 	//Method to draw the asteroid
 	@Override
 	public void draw(Graphics g, Point2D pCmpRelPrnt) {
-
+		
 		//Getting the location relative to the local component
 		int x = (int)(pCmpRelPrnt.getX() + this.getX());
 		int y = (int)(pCmpRelPrnt.getY() + this.getY());
@@ -83,7 +83,7 @@ public class Asteroid extends Movable implements IDrawable, ISelectable, ICollid
 		 //Drawing and filling the asteroid
 		 g.setColor(this.getColor());
 		 g.drawPolygon(xSidePoints, ySidePoints, sidePoints);
-		 g.fillPolygon(xSidePoints, ySidePoints, sidePoints);
+		 //g.fillPolygon(xSidePoints, ySidePoints, sidePoints);
 		
 	}
 	
@@ -100,5 +100,6 @@ public class Asteroid extends Movable implements IDrawable, ISelectable, ICollid
 		return false;
 		
 	}
+
 	
 }

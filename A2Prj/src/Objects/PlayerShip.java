@@ -3,6 +3,7 @@ package Objects;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point2D;
+import com.mycompany.a2.GameWorld;
 
 import Interfaces.ICollider;
 import Interfaces.IDrawable;
@@ -23,12 +24,12 @@ public class PlayerShip extends Movable implements ISteerable, IDrawable, IColli
 	public PlayerShip() {
 		
 		super();
-		setX(512);							//Setting the initial position of PS to the center of the screen 
-		setY(384);							//x,y = 512,384
-		setSpeed(0);						//Default speed is set to zero
-		setDirection(0);					//Setting the default direction to 0 degrees
-		setMissileCount(maxMissileCount);	//Setting the default missile max to 10
-		setColor(ColorUtil.rgb(255, 0, 0));	//Color set to red
+		setX(GameWorld.getWidth()/2);							//Setting the initial position of PS to the center of the screen 
+		setY(GameWorld.getHeight()/2);							//Spawn the player ship to the center of the screen
+		setSpeed(0);											//Default speed is set to zero
+		setDirection(0);										//Setting the default direction to 0 degrees
+		setMissileCount(maxMissileCount);						//Setting the default missile max to 10
+		setColor(ColorUtil.rgb(255, 0, 0));						//Color set to red
 		psLauncher = new SteerableMissileLauncher(this.getSpeed(), this.getDirection());
 		steerDegrees = 5;
 		size = 10;

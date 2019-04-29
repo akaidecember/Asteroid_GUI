@@ -5,6 +5,8 @@
 
 package Objects;
 
+import com.mycompany.a2.GameWorld;
+
 public class GameCanvas {
 
 	//Attributes for the class GameCanvas to set the limits for the size of the canvas
@@ -14,6 +16,14 @@ public class GameCanvas {
 	private static double maximumY = 768.0;
 	
 	//Behaviours----------------------------------------------------------------------
+	
+/*	//Constructor
+	public GameCanvas() {
+		
+		this.maximumX = GameWorld.getWidth();
+		this.maximumY = GameWorld.getHeight();
+		
+	}*/
 	
 /*	//Static methods to check if the coordinates are within range
 	public static boolean rangeCheck(double xVal, double yVal) {
